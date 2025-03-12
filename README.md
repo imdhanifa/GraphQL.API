@@ -77,8 +77,8 @@ GraphQL.API
 
 1. **Clone the Repository**  
    ```bash
-   git clone https://github.com/YourUsername/GraphQL.API.git
-   cd YourRepo
+   git clone https://github.com/{{YourUsername}}/GraphQL.API.git
+   cd GraphQL.API
    dotnet restore
    dotnet build
    dotnet run
