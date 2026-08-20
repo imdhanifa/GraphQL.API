@@ -1,0 +1,27 @@
+schema {
+  query: BookQuery
+  mutation: BookMutation
+}
+
+type BookQuery {
+  "Retrieves all books."
+  books: [Book]
+  "Retrieves a specific book by its ID."
+  book(id: Int!): Book
+}
+
+type Book {
+  "The unique identifier of the book."
+  id: Int!
+  "The title of the book."
+  title: String!
+  "The author of the book."
+  authorId: Int!
+}
+
+type BookMutation {
+  "Adds a new book."
+  addBook(title: String!, authorId: Int!): Book
+  "Deletes a book by its ID."
+  deleteBook(id: Int!): Boolean
+}

@@ -28,7 +28,7 @@ builder.Services.AddSingleton<ISchema, AppSchema>();
 
 builder.Services.AddGraphQL(options =>
 {
-    options.AddSystemTextJson(); 
+    options.AddSystemTextJson();
     options.AddErrorInfoProvider(opt => opt.ExposeExceptionDetails = true);
     options.AddSchema<AppSchema>();
     options.AddSchema<BookSchema>();

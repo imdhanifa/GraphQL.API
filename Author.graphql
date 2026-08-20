@@ -1,0 +1,25 @@
+schema {
+  query: AuthorQuery
+  mutation: AuthorMutation
+}
+
+type AuthorQuery {
+  "Retrieves all authors."
+  authors: [Author]
+  "Retrieves a specific author by his ID."
+  author(id: Int!): Author
+}
+
+type Author {
+  "The unique identifier of the author."
+  id: Int!
+  "The name of the author."
+  name: String!
+}
+
+type AuthorMutation {
+  "Adds a new author."
+  addAuthor(name: String!): Author
+  "Deletes an author by his ID."
+  deleteAuthor(id: Int!): Boolean
+}
