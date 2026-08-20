@@ -7,35 +7,34 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddSingleton<IRepository<Author>, AuthorRepository>();
 builder.Services.AddSingleton<IRepository<Book>, BookRepository>();
+/* Register GraphQL queries */
 
-/* Register GraphQL queries and mutations */
+builder.Services.AddTransient<AuthorQuery>();
+builder.Services.AddTransient<BookQuery>();
+builder.Services.AddTransient<Query>();
 
-builder.Services.AddSingleton<AuthorQuery>();
-builder.Services.AddSingleton<BookQuery>();
-builder.Services.AddSingleton<Query>();
+/* Register GraphQL mutations */
 
-builder.Services.AddSingleton<AuthorMutation>();
-builder.Services.AddSingleton<BookMutation>();
-builder.Services.AddSingleton<Mutation>();
+builder.Services.AddTransient<AuthorMutation>();
+builder.Services.AddTransient<BookMutation>();
+builder.Services.AddTransient<Mutation>();
 
 /* Register GraphQL schemas */
 
-builder.Services.AddSingleton<ISchema, AuthorSchema>();
-builder.Services.AddSingleton<ISchema, BookSchema>();
-builder.Services.AddSingleton<ISchema, AppSchema>();
+builder.Services.AddTransient<AuthorSchema>();
+builder.Services.AddTransient<BookSchema>();
+builder.Services.AddTransient<AppSchema>();
 
-/*Register GraphQL services*/
-
+/* Register GraphQL services */
 builder.Services.AddGraphQL(options =>
 {
     options.AddSystemTextJson();
-    options.AddErrorInfoProvider(opt => opt.ExposeExceptionDetails = true);
-    options.AddSchema<AppSchema>();
-    options.AddSchema<BookSchema>();
-    options.AddSchema<AuthorSchema>();
+
+    options.AddErrorInfoProvider(opt =>
+    {
+        opt.ExposeExceptionDetails = true;
+    });
     options.AddGraphTypes(typeof(AppSchema).Assembly);
-    options.AddGraphTypes(typeof(BookSchema).Assembly);
-    options.AddGraphTypes(typeof(AuthorSchema).Assembly);
 });
 
 var app = builder.Build();
